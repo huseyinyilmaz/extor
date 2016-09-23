@@ -17,3 +17,11 @@ cabal.sandbox.config
 *.eventlog
 .stack-work/
 cabal.project.local
+
+# emacs
+.\#*
+*~
+\#*\#
+
+# mac files
+.DS_Store
