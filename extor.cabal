@@ -22,6 +22,8 @@ library
                      , tagsoup
                      , classy-prelude
                      , text
+                     , mtl
+                     , containers
   default-language:    Haskell2010
   default-extensions:  OverloadedStrings
                      , DuplicateRecordFields
