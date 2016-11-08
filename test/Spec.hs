@@ -16,16 +16,26 @@ testGetItems = TestCase $ do
   --               "</ul>" <>
   --               "<div> five </div>" <>
   --               "</body></html>")
-  let content = ("<li>zero</li>" <>
-                 "<li>one</li>" <>
-                 "<li>two</li>"
+  let content = ("<li class=\"attr-zero\">zero</li>" <>
+                 "<li class=\"attr-one\">one</li>" <>
+                 "<li class=\"attr-two\">two</li>"
                  )
-      parsed = [Extor.Item {location = [Element {name = "li", attributes = [], number = 0}], value = "zero"},Extor.Item {location = [Element {name = "li", attributes = [], number = 1}], value = "one"},Extor.Item {location = [Element {name = "li", attributes = [], number = 2}], value = "two"}]
+      parsed = [Extor.Item{location=[Extor.Element{name = "li",
+                                                   attributes = [("class","attr-zero")],
+                                                   number = 0}],
+                           value="zero"},
+                Extor.Item{location=[Extor.Element{name = "li",
+                                                   attributes =[("class","attr-one")],
+                                                   number = 1}],
+                           value="one"},
+                Extor.Item{location=[Extor.Element{name="li",
+                                                   attributes=[("class","attr-two")],
+                                                   number = 2}],
+                           value = "two"}]
 
   (assertEqual
     "Test Get items"
-    []
-    --["one", "two", "three", "four"]
+    parsed
     (Extor.getItems content))
 
 -- testExtractOneBranchLeaf:: Test

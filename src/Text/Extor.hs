@@ -1,5 +1,7 @@
 module Text.Extor
     ( -- Types
+      Item(..),
+      Element(..),
       -- Query(..),
       HtmlContent(..),
       -- Functions
@@ -59,9 +61,9 @@ sample = readFile "/Users/huseyinyilmaz/Downloads/tagsoup_ Parsing and extractin
 
 walkElement :: Location -> TagTree Text.Text -> State.State (Map.Map Text.Text Int) [Item]
 walkElement location (TagLeaf (TagText str)) = return [Item{location=location, value=str}]
-walkElement location (TagBranch tag _ children) = do
+walkElement location (TagBranch tag attrs children) = do
   idx <- getIndex tag
-  let element = Element{name=tag, attributes=[], number=idx}
+  let element = Element{name=tag, attributes=attrs, number=idx}
   return (walkTree (element:location) children)
   where
     getIndex :: Text.Text -> State.State (Map.Map Text.Text Int) Int
@@ -69,7 +71,7 @@ walkElement location (TagBranch tag _ children) = do
       m <- State.get
       case Map.lookup t m of
         Just idx -> do
-          let newState = Trace.traceShowId (Map.insert t (idx+1) m)
+          let newState = Map.insert t (idx+1) m
           State.put newState
           return idx
         Nothing -> do
