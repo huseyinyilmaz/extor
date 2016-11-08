@@ -16,12 +16,11 @@ testGetItems = TestCase $ do
   --               "</ul>" <>
   --               "<div> five </div>" <>
   --               "</body></html>")
-  let content = (
-                "<ul>" <>
-                "<li>one</li>" <>
-                "<li>two</li>" <>
-                "</ul>"
-                )
+  let content = ("<li>zero</li>" <>
+                 "<li>one</li>" <>
+                 "<li>two</li>"
+                 )
+      parsed = [Extor.Item {location = [Element {name = "li", attributes = [], number = 0}], value = "zero"},Extor.Item {location = [Element {name = "li", attributes = [], number = 1}], value = "one"},Extor.Item {location = [Element {name = "li", attributes = [], number = 2}], value = "two"}]
 
   (assertEqual
     "Test Get items"
